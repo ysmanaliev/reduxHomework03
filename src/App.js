@@ -1,25 +1,41 @@
-import logo from './logo.svg';
+import React from 'react';
+import { connect } from 'react-redux'
 import './App.css';
 
-function App() {
+function App(props) {
+
+const handleInc = (evt) => {
+  props.dispatch({
+    type: 'INCREMENT'
+  })
+}
+
+const handleDec = (evt) => {
+  props.dispatch({
+    type: 'DECREMENT'
+  })
+}
+
+
+console.log(props.dispatch)
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <button onClick={handleInc}>+</button>
+      <button onClick={handleDec}>-</button>
+      <p>
+      {props.count}
+      </p>
       </header>
     </div>
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    count: state.count
+  }
+}
+
+
+export default connect(mapStateToProps)(App);
